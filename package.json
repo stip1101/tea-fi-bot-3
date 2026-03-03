@@ -17,7 +17,8 @@
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
     "deploy": "bun run src/bot/deploy-commands.ts",
-    "ai:init": "bun run src/scripts/init-vector-store.ts"
+    "ai:init": "bun run src/scripts/init-vector-store.ts",
+    "send-guide": "bun run src/scripts/send-guide.ts"
   },
   "dependencies": {
     "axios": "^1.7.0",
