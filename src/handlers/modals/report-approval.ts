@@ -2,7 +2,7 @@ import { type ModalSubmitInteraction, type GuildMember, type TextChannel, EmbedB
 import { eq, sql } from 'drizzle-orm';
 import { db, localLeadReports, users, xpHistory } from '../../db';
 import { XP_SOURCES } from '../../config/constants';
-import { getAdminRoleId } from '../../config/roles';
+import { getAdminRoleIds } from '../../config/roles';
 import { COLORS, EMOJIS } from '../../config';
 import { generateId } from '../../utils/id';
 import { handlerLogger } from '../../utils/logger';
@@ -17,9 +17,9 @@ export default async function handleReportApproval(
 ): Promise<void> {
   await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 
-  const adminRoleId = getAdminRoleId();
+  const adminRoleIds = getAdminRoleIds();
   const member = interaction.member as GuildMember | null;
-  if (!(member?.roles?.cache?.has(adminRoleId) ?? false)) {
+  if (!adminRoleIds.some((id) => member?.roles?.cache?.has(id))) {
     await interaction.editReply({ content: `${EMOJIS.CROSS} You do not have permission to approve reports.` });
     return;
   }

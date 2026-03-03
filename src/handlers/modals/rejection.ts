@@ -2,7 +2,7 @@ import { type ModalSubmitInteraction, type GuildMember, MessageFlags } from 'dis
 import { eq } from 'drizzle-orm';
 import { db, users, works } from '../../db';
 import { WORK_STATUSES } from '../../config/constants';
-import { getAdminRoleId } from '../../config/roles';
+import { getAdminRoleIds } from '../../config/roles';
 import { EMOJIS } from '../../config';
 import { invalidatePendingCount, invalidateLeaderboardCache } from '../../state/cache';
 import { handlerLogger } from '../../utils/logger';
@@ -26,9 +26,9 @@ export default async function handleRejection(
 ): Promise<void> {
   await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 
-  const adminRoleId = getAdminRoleId();
+  const adminRoleIds = getAdminRoleIds();
   const member = interaction.member as GuildMember | null;
-  if (!(member?.roles?.cache?.has(adminRoleId) ?? false)) {
+  if (!adminRoleIds.some((id) => member?.roles?.cache?.has(id))) {
     await interaction.editReply({ content: `${EMOJIS.CROSS} You do not have permission to reject works.` });
     return;
   }

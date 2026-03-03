@@ -1,7 +1,7 @@
 import { SlashCommandBuilder, type ChatInputCommandInteraction, type GuildMember, EmbedBuilder } from 'discord.js';
 import type { Command } from '../../client';
 import { getAllTasks, updateTask, deactivateTask } from '../../../services/task.service';
-import { getAdminRoleId } from '../../../config/roles';
+import { getAdminRoleIds } from '../../../config/roles';
 import { COLORS, EMOJIS } from '../../../config';
 
 const command: Command = {
@@ -23,9 +23,9 @@ const command: Command = {
     ) as SlashCommandBuilder,
 
   async execute(interaction: ChatInputCommandInteraction): Promise<void> {
-    const adminRoleId = getAdminRoleId();
+    const adminRoleIds = getAdminRoleIds();
     const member = interaction.member as GuildMember | null;
-    if (!(member?.roles?.cache?.has(adminRoleId) ?? false)) {
+    if (!adminRoleIds.some((id) => member?.roles?.cache?.has(id))) {
       await interaction.reply({ content: `${EMOJIS.CROSS} No permission.`, ephemeral: true });
       return;
     }

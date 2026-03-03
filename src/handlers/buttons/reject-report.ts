@@ -1,5 +1,5 @@
 import { type ButtonInteraction, type GuildMember } from 'discord.js';
-import { getAdminRoleId } from '../../config/roles';
+import { getAdminRoleIds } from '../../config/roles';
 import { EMOJIS } from '../../config';
 import { getReportById } from '../../services/local-lead.service';
 import { createReportReviewModal } from '../shared/modals';
@@ -10,9 +10,9 @@ export default async function handleRejectReport(
 ): Promise<void> {
   const reportId = args[0] ?? null;
 
-  const adminRoleId = getAdminRoleId();
+  const adminRoleIds = getAdminRoleIds();
   const member = interaction.member as GuildMember | null;
-  if (!(member?.roles?.cache?.has(adminRoleId) ?? false)) {
+  if (!adminRoleIds.some((id) => member?.roles?.cache?.has(id))) {
     await interaction.reply({ content: `${EMOJIS.CROSS} You do not have permission to review reports.`, ephemeral: true });
     return;
   }

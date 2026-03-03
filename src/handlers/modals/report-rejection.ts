@@ -1,7 +1,7 @@
 import { type ModalSubmitInteraction, type GuildMember, type TextChannel, EmbedBuilder, MessageFlags } from 'discord.js';
 import { eq, sql } from 'drizzle-orm';
 import { db, localLeadReports } from '../../db';
-import { getAdminRoleId } from '../../config/roles';
+import { getAdminRoleIds } from '../../config/roles';
 import { COLORS, EMOJIS } from '../../config';
 import { handlerLogger } from '../../utils/logger';
 import { sendReportReviewNotifications, buildReportReviewResponse } from '../shared/review-notifications';
@@ -13,9 +13,9 @@ export default async function handleReportRejection(
 ): Promise<void> {
   await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 
-  const adminRoleId = getAdminRoleId();
+  const adminRoleIds = getAdminRoleIds();
   const member = interaction.member as GuildMember | null;
-  if (!(member?.roles?.cache?.has(adminRoleId) ?? false)) {
+  if (!adminRoleIds.some((id) => member?.roles?.cache?.has(id))) {
     await interaction.editReply({ content: `${EMOJIS.CROSS} You do not have permission to reject reports.` });
     return;
   }

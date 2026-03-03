@@ -2,7 +2,7 @@ import { SlashCommandBuilder, type ChatInputCommandInteraction, type GuildMember
 import type { Command } from '../../client';
 import { getUserByDiscordId } from '../../../services/user.service';
 import { setUserRole } from '../../../services/role.service';
-import { getAdminRoleId, ROLE_CONFIG } from '../../../config/roles';
+import { getAdminRoleIds, ROLE_CONFIG } from '../../../config/roles';
 import { EMOJIS } from '../../../config';
 import type { TeafiRole } from '../../../db/schema';
 
@@ -30,9 +30,9 @@ const command: Command = {
     ) as SlashCommandBuilder,
 
   async execute(interaction: ChatInputCommandInteraction): Promise<void> {
-    const adminRoleId = getAdminRoleId();
+    const adminRoleIds = getAdminRoleIds();
     const member = interaction.member as GuildMember | null;
-    if (!(member?.roles?.cache?.has(adminRoleId) ?? false)) {
+    if (!adminRoleIds.some((id) => member?.roles?.cache?.has(id))) {
       await interaction.reply({ content: `${EMOJIS.CROSS} No permission.`, ephemeral: true });
       return;
     }

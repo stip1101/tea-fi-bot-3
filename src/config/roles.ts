@@ -45,7 +45,7 @@ export const ROLE_CONFIG: Record<TeafiRole, TeafiRoleConfig> = {
 };
 
 export interface DiscordRoleIds {
-  ADMIN_ROLE_ID: string;
+  ADMIN_ROLE_IDS: string[];
   LOCAL_LEAD_ROLE_ID: string;
   SPROUT_LEAF_ROLE_ID: string | null;
   GREEN_LEAF_ROLE_ID: string | null;
@@ -63,7 +63,7 @@ export function loadRoleConfig(): DiscordRoleIds {
   }
 
   cachedConfig = {
-    ADMIN_ROLE_ID: adminRoleId,
+    ADMIN_ROLE_IDS: adminRoleId.split(',').map((id) => id.trim()).filter(Boolean),
     LOCAL_LEAD_ROLE_ID: process.env.LOCAL_LEAD_ROLE_ID || '',
     SPROUT_LEAF_ROLE_ID: process.env.SPROUT_LEAF_ROLE_ID || null,
     GREEN_LEAF_ROLE_ID: process.env.GREEN_LEAF_ROLE_ID || null,
@@ -73,8 +73,8 @@ export function loadRoleConfig(): DiscordRoleIds {
   return cachedConfig;
 }
 
-export function getAdminRoleId(): string {
-  return loadRoleConfig().ADMIN_ROLE_ID;
+export function getAdminRoleIds(): string[] {
+  return loadRoleConfig().ADMIN_ROLE_IDS;
 }
 
 export function getLocalLeadRoleId(): string {

@@ -6,7 +6,7 @@ import {
   ButtonStyle,
   type GuildMember,
 } from 'discord.js';
-import { getAdminRoleId, ROLE_CONFIG } from '../../config/roles';
+import { getAdminRoleIds, ROLE_CONFIG } from '../../config/roles';
 import { COLORS, EMOJIS, getMonthlyPool } from '../../config';
 import { PAGINATION } from '../../config/constants';
 import {
@@ -29,9 +29,9 @@ import type { TeafiRole } from '../../db/schema';
 type DashboardPageType = 'overview' | 'top' | 'pending' | 'problems' | 'reports';
 
 function isAdmin(interaction: ButtonInteraction): boolean {
-  const adminRoleId = getAdminRoleId();
+  const adminRoleIds = getAdminRoleIds();
   const member = interaction.member as GuildMember | null;
-  return member?.roles?.cache?.has(adminRoleId) ?? false;
+  return adminRoleIds.some((id) => member?.roles?.cache?.has(id));
 }
 
 export default async function handleDashboard(

@@ -1,5 +1,5 @@
 import { type GuildMember, type Interaction } from 'discord.js';
-import { getAdminRoleId } from '../../config/roles';
+import { getAdminRoleIds } from '../../config/roles';
 import { getWorkById, type Work } from '../../services/work.service';
 
 export type ValidationSuccess = {
@@ -23,9 +23,9 @@ export async function validateWorkReview(
   workId: string | null
 ): Promise<ValidationResult> {
   // Admin check
-  const adminRoleId = getAdminRoleId();
+  const adminRoleIds = getAdminRoleIds();
   const member = interaction.member as GuildMember | null;
-  const hasAdminRole = member?.roles?.cache?.has(adminRoleId) ?? false;
+  const hasAdminRole = adminRoleIds.some((id) => member?.roles?.cache?.has(id));
 
   if (!hasAdminRole) {
     return { success: false, error: '❌ You do not have permission to review works.' };

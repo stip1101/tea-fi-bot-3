@@ -4,14 +4,14 @@ import type {
   ModalSubmitInteraction,
   GuildMember,
 } from 'discord.js';
-import { getAdminRoleId } from '../config/roles';
+import { getAdminRoleIds } from '../config/roles';
 
 type SupportedInteraction = ButtonInteraction | ChatInputCommandInteraction | ModalSubmitInteraction;
 
 export async function requireAdmin(interaction: SupportedInteraction): Promise<boolean> {
-  const adminRoleId = getAdminRoleId();
+  const adminRoleIds = getAdminRoleIds();
   const member = interaction.member as GuildMember | null;
-  const hasAdminRole = member?.roles?.cache?.has(adminRoleId) ?? false;
+  const hasAdminRole = adminRoleIds.some((id) => member?.roles?.cache?.has(id)) ?? false;
 
   if (!hasAdminRole) {
     await interaction.reply({
