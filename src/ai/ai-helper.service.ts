@@ -161,6 +161,7 @@ export async function processMessage(message: Message): Promise<AiHelperResponse
         instructions: systemPrompt,
         input: sanitizedContent,
         max_output_tokens: AI_HELPER_CONFIG.maxTokens,
+        tool_choice: 'required',
         tools: [
           {
             type: 'file_search',
