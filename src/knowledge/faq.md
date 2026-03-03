@@ -3,7 +3,7 @@
 ## Getting Started
 
 ### Q: How do I start?
-A: Join the Tea-Fi Discord (https://discord.gg/9Q5sUSjxGr), use `/profile` to create your account and Tea Card, then submit work for tasks using `/sendwork`.
+A: Go to <#1397567024837824573> and use `/profile` to create your account and Tea Card, then submit work for tasks using `/sendwork`.
 
 ### Q: How do I earn XP?
 A: Submit work for admin-defined tasks. When your work is approved, you receive the task's base XP plus any optional bonus XP from the reviewer.

@@ -36,8 +36,7 @@ Build community in your region. Local Leaders expand Tea-Fi regionally and build
 
 ## Getting Started
 
-1. Join the Tea-Fi Discord: https://discord.gg/9Q5sUSjxGr
-2. Use `/profile` to register and get your Tea Card
-3. Use `/sendwork` to submit your first work
-4. Check `/leaderboard` to see top contributors
-5. Use `/rewards` to view your monthly reward estimate
+1. Go to <#1397567024837824573> and use `/profile` to register and get your Tea Card
+2. Use `/sendwork` to submit your first work
+3. Check `/leaderboard` to see top contributors
+4. Use `/rewards` to view your monthly reward estimate

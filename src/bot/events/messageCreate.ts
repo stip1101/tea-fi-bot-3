@@ -1,4 +1,4 @@
-import { Events, type Message, ChannelType } from 'discord.js';
+import { Events, type Message, ChannelType, MessageFlags } from 'discord.js';
 import type { ExtendedClient } from '../client';
 import { AI_HELPER_CONFIG, shouldRespond, processMessage, formatResponse, aiLogger } from '../../ai';
 import { getChannelIds } from '../../config';
@@ -70,6 +70,7 @@ export function setupMessageCreateEvent(client: ExtendedClient): void {
         await message.reply({
           content: formattedResponse,
           allowedMentions: { repliedUser: true },
+          flags: [MessageFlags.SuppressEmbeds],
         });
       } else if (result.error) {
         // Only reply with error if bot was explicitly mentioned
