@@ -33,6 +33,23 @@ export class UserBannedError extends Error {
   }
 }
 
+export class ReportNotFoundError extends Error {
+  constructor(public reportId: string) {
+    super(`Report ${reportId} not found`);
+    this.name = 'ReportNotFoundError';
+  }
+}
+
+export class ReportAlreadyReviewedError extends Error {
+  constructor(
+    public reportId: string,
+    public currentStatus: string
+  ) {
+    super(`Report ${reportId} already ${currentStatus}`);
+    this.name = 'ReportAlreadyReviewedError';
+  }
+}
+
 export class InsufficientXpError extends Error {
   constructor(
     public userId: string,

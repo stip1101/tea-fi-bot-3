@@ -32,7 +32,11 @@ export default async function handleLocalLeadReport(
   }
 
   try {
-    new URL(docLink);
+    const parsed = new URL(docLink);
+    if (!parsed.protocol.startsWith('http')) {
+      await interaction.editReply({ content: `${EMOJIS.CROSS} Only HTTP/HTTPS links are allowed.` });
+      return;
+    }
   } catch {
     await interaction.editReply({ content: `${EMOJIS.CROSS} Please provide a valid URL.` });
     return;
@@ -54,14 +58,23 @@ export default async function handleLocalLeadReport(
     return;
   }
 
-  const report = await submitReport(user.id, docLink, comment);
+  let report;
+  try {
+    report = await submitReport(user.id, docLink, comment);
+  } catch (error) {
+    if ((error as Error).message?.includes('unique') || (error as any).code === '23505') {
+      await interaction.editReply({ content: `${EMOJIS.CROSS} You have already submitted a report for this month.` });
+      return;
+    }
+    throw error;
+  }
 
   try {
     const { LOCAL_LEAD_REVIEW_CHANNEL_ID } = getChannelIds();
     if (LOCAL_LEAD_REVIEW_CHANNEL_ID) {
       const channel = await interaction.client.channels.fetch(LOCAL_LEAD_REVIEW_CHANNEL_ID) as TextChannel | null;
       if (channel) {
-        const embed = createLocalLeadReportEmbed(interaction.user, report);
+        const embed = createLocalLeadReportEmbed(interaction.user, user, report);
         const reviewButtons = createReportReviewButtons(report.id);
         const msg = await channel.send({ embeds: [embed], components: [reviewButtons] });
         await updateReportReviewMessage(report.id, msg.id, channel.id);

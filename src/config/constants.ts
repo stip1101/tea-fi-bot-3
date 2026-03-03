@@ -8,6 +8,7 @@ export const WORK_STATUSES = {
 // XP Sources
 export const XP_SOURCES = {
   WORK_APPROVED: 'work_approved',
+  REPORT_APPROVED: 'report_approved',
   BONUS: 'bonus',
   ADMIN_ADJUSTMENT: 'admin_adjustment',
 } as const;

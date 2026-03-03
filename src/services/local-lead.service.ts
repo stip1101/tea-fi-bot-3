@@ -89,6 +89,8 @@ export async function getReportsByMonth(
         reviewerId: localLeadReports.reviewerId,
         reviewedAt: localLeadReports.reviewedAt,
         reviewNotes: localLeadReports.reviewNotes,
+        qualityScore: localLeadReports.qualityScore,
+        xpAwarded: localLeadReports.xpAwarded,
         reviewMessageId: localLeadReports.reviewMessageId,
         reviewChannelId: localLeadReports.reviewChannelId,
         submittedAt: localLeadReports.submittedAt,

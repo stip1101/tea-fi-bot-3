@@ -202,6 +202,8 @@ export const localLeadReports = pgTable(
     reviewerId: text('reviewer_id'),
     reviewedAt: timestamp('reviewed_at'),
     reviewNotes: text('review_notes'),
+    qualityScore: integer('quality_score'),
+    xpAwarded: integer('xp_awarded'),
     reviewMessageId: text('review_message_id'),
     reviewChannelId: text('review_channel_id'),
 

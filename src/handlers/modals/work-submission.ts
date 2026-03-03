@@ -14,6 +14,7 @@ import { createReviewEmbed, createReviewButtons } from '../../discord/embeds';
 import { getChannelIds, EMOJIS } from '../../config';
 import { RATE_LIMITS } from '../../config/constants';
 import { handlerLogger } from '../../utils/logger';
+import { isValidUrl } from '../../utils/url';
 
 async function releaseLock(userId: string): Promise<void> {
   await redis.del(`submit_lock:${userId}`);
@@ -169,15 +170,4 @@ export default async function handleWorkSubmission(
   }
 }
 
-const ALLOWED_DOMAINS = ['twitter.com', 'x.com', 'mobile.twitter.com'];
-
-export function isValidUrl(str: string): boolean {
-  try {
-    const url = new URL(str);
-    if (url.protocol !== 'http:' && url.protocol !== 'https:') return false;
-    const hostname = url.hostname.toLowerCase();
-    return ALLOWED_DOMAINS.some(d => hostname === d || hostname.endsWith('.' + d));
-  } catch {
-    return false;
-  }
-}
+export { isValidUrl } from '../../utils/url';

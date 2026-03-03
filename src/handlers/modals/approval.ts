@@ -45,13 +45,13 @@ export default async function handleApproval(
   const bonusXpStr = interaction.fields.getTextInputValue('bonus-xp').trim();
   const reviewNotes = interaction.fields.getTextInputValue('review-notes').trim() || undefined;
 
-  const qualityScore = parseInt(qualityScoreStr, 10);
-  if (isNaN(qualityScore) || qualityScore < 0 || qualityScore > 100) {
+  const qualityScore = Number(qualityScoreStr);
+  if (!Number.isInteger(qualityScore) || qualityScore < 0 || qualityScore > 100) {
     await interaction.editReply({ content: `${EMOJIS.CROSS} Quality score must be a number between 0 and 100.` });
     return;
   }
 
-  const bonusXp = bonusXpStr ? parseInt(bonusXpStr, 10) : 0;
+  const bonusXp = bonusXpStr ? Number(bonusXpStr) : 0;
   if (isNaN(bonusXp) || bonusXp < 0 || bonusXp > 500) {
     await interaction.editReply({ content: `${EMOJIS.CROSS} Bonus XP must be a number between 0 and 500.` });
     return;

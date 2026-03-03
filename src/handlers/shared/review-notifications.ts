@@ -4,7 +4,7 @@ import {
   EmbedBuilder,
 } from 'discord.js';
 import { getChannelIds, COLORS, EMOJIS } from '../../config';
-import { createTaskLogEmbed, createDMNotificationEmbed } from '../../discord/embeds';
+import { createTaskLogEmbed, createDMNotificationEmbed, createReportTaskLogEmbed, createReportDMEmbed } from '../../discord/embeds';
 import { handlerLogger } from '../../utils/logger';
 
 export interface ReviewWorkData {
@@ -145,4 +145,97 @@ export function buildReviewResponse(
   }
 
   return `${EMOJIS.CROSS} Work rejected.\n\n${EMOJIS.TARGET} Quality: ${qualityScore}%${warningText}`;
+}
+
+// ==================== REPORT REVIEW NOTIFICATIONS ====================
+
+export interface ReportReviewNotificationParams {
+  client: Client;
+  discordId: string;
+  reportId: string;
+  monthYear: string;
+  docLink: string;
+  isApproval: boolean;
+  qualityScore: number;
+  xpAwarded: number;
+  reviewNotes?: string;
+}
+
+export async function sendReportReviewNotifications(
+  params: ReportReviewNotificationParams
+): Promise<NotificationResult> {
+  const {
+    client,
+    discordId,
+    reportId,
+    monthYear,
+    docLink,
+    isApproval,
+    qualityScore,
+    xpAwarded,
+    reviewNotes,
+  } = params;
+
+  const result: NotificationResult = { taskLog: false, dm: false };
+
+  let discordUser;
+  try {
+    discordUser = await client.users.fetch(discordId);
+  } catch {
+    handlerLogger.error({ userId: discordId }, 'Failed to fetch Discord user for report notification');
+  }
+
+  const { TASK_LOG_CHANNEL_ID } = getChannelIds();
+  if (TASK_LOG_CHANNEL_ID && discordUser) {
+    try {
+      const taskLogChannel = (await client.channels.fetch(TASK_LOG_CHANNEL_ID)) as TextChannel;
+      if (taskLogChannel) {
+        const taskLogEmbed = createReportTaskLogEmbed(
+          discordUser,
+          isApproval,
+          monthYear,
+          docLink,
+          qualityScore,
+          xpAwarded,
+          reportId
+        );
+        await taskLogChannel.send({ embeds: [taskLogEmbed] });
+        result.taskLog = true;
+      }
+    } catch (error) {
+      handlerLogger.error({ err: error, reportId }, 'Failed to send report task log');
+    }
+  }
+
+  if (discordUser) {
+    try {
+      const dmEmbed = createReportDMEmbed(isApproval, monthYear, docLink, qualityScore, xpAwarded, reviewNotes);
+      await discordUser.send({ embeds: [dmEmbed] });
+      result.dm = true;
+    } catch (error) {
+      handlerLogger.error({ err: error, userId: discordId }, 'Failed to send report DM');
+    }
+  }
+
+  return result;
+}
+
+export function buildReportReviewResponse(
+  qualityScore: number,
+  xpAwarded: number,
+  notifications: NotificationResult,
+  isApproval: boolean
+): string {
+  const warnings: string[] = [];
+  if (!notifications.taskLog) warnings.push(`${EMOJIS.WARNING} Task log failed`);
+  if (!notifications.dm) warnings.push(`${EMOJIS.WARNING} DM to user failed`);
+
+  const warningText = warnings.length > 0 ? `\n\n${warnings.join('\n')}` : '';
+
+  if (isApproval) {
+    const xpText = xpAwarded > 0 ? `\n${EMOJIS.MONEY} XP awarded: +${xpAwarded}` : '';
+    return `${EMOJIS.CHECK} Report approved!\n\n${EMOJIS.TARGET} Quality: ${qualityScore}%${xpText}${warningText}`;
+  }
+
+  return `${EMOJIS.CROSS} Report rejected.\n\n${EMOJIS.TARGET} Quality: ${qualityScore}%${warningText}`;
 }

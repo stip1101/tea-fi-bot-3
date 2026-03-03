@@ -421,39 +421,47 @@ export function createDMNotificationEmbed(
 
 export function createLocalLeadReportEmbed(
   discordUser: DiscordUser,
+  user: User,
   report: LocalLeadReport
 ): EmbedBuilder {
+  const { name: roleName, emoji: roleEmoji } = getRoleDisplay(user.role as TeafiRole);
+
   const embed = new EmbedBuilder()
-    .setColor(COLORS.GOLD)
+    .setColor(COLORS.SECONDARY)
     .setAuthor({
       name: discordUser.username,
       iconURL: discordUser.displayAvatarURL({ size: 64 }),
     })
     .setThumbnail(discordUser.displayAvatarURL({ size: 128 }))
     .setTitle(`${EMOJIS.FALLEN_LEAF} ══════ MONTHLY REPORT ══════ ${EMOJIS.FALLEN_LEAF}`)
-    .addFields(
-      {
-        name: `${EMOJIS.CHART} Month`,
-        value: report.monthYear,
-        inline: true,
-      },
-      {
-        name: `${EMOJIS.LINK} Document`,
-        value: report.docLink,
-        inline: false,
-      }
-    );
+    .setDescription(
+      `${EMOJIS.USER} **LOCAL LEAD**\n` +
+      `┌─────────────────────────────────────────┐\n` +
+      `│  **@${discordUser.username}**\n` +
+      `│  ${roleEmoji} **${roleName}**\n` +
+      `│  ${EMOJIS.STAR} ${user.totalXp.toLocaleString()} XP\n` +
+      `└─────────────────────────────────────────┘`
+    )
+    .addFields({
+      name: `${EMOJIS.CHART} REPORT DETAILS`,
+      value:
+        `┌─────────────────────────────────────────┐\n` +
+        `│  ${EMOJIS.FALLEN_LEAF} Month: **${report.monthYear}**\n` +
+        `│  ${EMOJIS.LINK} [Document Link](${report.docLink})\n` +
+        `└─────────────────────────────────────────┘`,
+      inline: false,
+    });
 
   if (report.comment) {
     embed.addFields({
-      name: `${EMOJIS.MEMO} Comment`,
-      value: report.comment,
+      name: `${EMOJIS.MEMO} COMMENT`,
+      value: `"${report.comment}"`,
       inline: false,
     });
   }
 
   embed.setFooter({
-    text: `Report ID: ${report.id} • ${report.submittedAt.toLocaleDateString('en-GB')}`,
+    text: `Report ID: ${report.id} • ${report.submittedAt.toLocaleDateString('en-GB')} ${report.submittedAt.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}`,
   });
 
   return embed;
@@ -478,6 +486,8 @@ export function createReportDMEmbed(
   approved: boolean,
   monthYear: string,
   docLink: string,
+  qualityScore: number,
+  xpAwarded: number,
   reviewNotes?: string
 ): EmbedBuilder {
   const embed = new EmbedBuilder()
@@ -487,7 +497,14 @@ export function createReportDMEmbed(
       `**═══════════════════════════════════════════**\n\n` +
       `${EMOJIS.FALLEN_LEAF} Monthly Report — **${monthYear}**\n` +
       `${EMOJIS.LINK} ${docLink}`
-    );
+    )
+    .addFields({
+      name: `**═══════════════════════════════════════════**\n${EMOJIS.MONEY} ${approved ? 'RESULT' : 'FEEDBACK'}`,
+      value:
+        `${EMOJIS.TARGET} Quality Score: **${qualityScore}%**\n` +
+        (approved && xpAwarded > 0 ? `${EMOJIS.DIAMOND} Bonus XP: **+${xpAwarded}**\n` : ''),
+      inline: false,
+    });
 
   if (reviewNotes) {
     embed.addFields({
@@ -499,4 +516,44 @@ export function createReportDMEmbed(
 
   embed.setTimestamp();
   return embed;
+}
+
+export function createReportTaskLogEmbed(
+  discordUser: DiscordUser,
+  approved: boolean,
+  monthYear: string,
+  docLink: string,
+  qualityScore: number,
+  xpAwarded: number,
+  reportId: string
+): EmbedBuilder {
+  const statusText = approved ? 'report approved' : 'report needs revision';
+
+  return new EmbedBuilder()
+    .setColor(approved ? COLORS.SUCCESS : COLORS.ERROR)
+    .setTitle(approved ? `${EMOJIS.CHECK} Report Approved` : `${EMOJIS.CROSS} Report Rejected`)
+    .setThumbnail(discordUser.displayAvatarURL({ size: 128 }))
+    .setDescription(
+      `**@${discordUser.username}**'s monthly ${statusText}!`
+    )
+    .addFields(
+      {
+        name: `${EMOJIS.FALLEN_LEAF} Month`,
+        value: monthYear,
+        inline: true,
+      },
+      {
+        name: `${EMOJIS.TARGET} Quality`,
+        value: `${qualityScore}%`,
+        inline: true,
+      },
+      {
+        name: `${EMOJIS.DIAMOND} XP Earned`,
+        value: approved && xpAwarded > 0 ? `+${xpAwarded}` : '0',
+        inline: true,
+      }
+    )
+    .setFooter({
+      text: `Report ID: ${reportId} • ${new Date().toLocaleDateString('en-GB')} ${new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}`,
+    });
 }

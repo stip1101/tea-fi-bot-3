@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'bun:test';
-import { isValidUrl } from '../../../src/handlers/modals/work-submission';
+import { isValidUrl } from '../../../src/utils/url';
 
 describe('isValidUrl', () => {
   describe('valid Twitter URLs', () => {

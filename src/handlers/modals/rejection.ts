@@ -42,8 +42,8 @@ export default async function handleRejection(
   const qualityScoreStr = interaction.fields.getTextInputValue('quality-score').trim();
   const reviewNotes = interaction.fields.getTextInputValue('review-notes').trim() || undefined;
 
-  const qualityScore = parseInt(qualityScoreStr, 10);
-  if (isNaN(qualityScore) || qualityScore < 0 || qualityScore > 100) {
+  const qualityScore = Number(qualityScoreStr);
+  if (!Number.isInteger(qualityScore) || qualityScore < 0 || qualityScore > 100) {
     await interaction.editReply({ content: `${EMOJIS.CROSS} Quality score must be a number between 0 and 100.` });
     return;
   }
