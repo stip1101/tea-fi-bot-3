@@ -173,6 +173,12 @@ export async function processMessage(message: Message): Promise<AiHelperResponse
       }
     );
 
+    // Log whether file_search was actually used
+    const fileSearchUsed = response.output.some(
+      (item: any) => item.type === 'file_search_call'
+    );
+    aiLogger.info({ userId, fileSearchUsed }, 'OpenAI response received');
+
     // Extract response text
     const outputText = response.output_text;
 
