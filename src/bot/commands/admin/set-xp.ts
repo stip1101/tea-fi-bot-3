@@ -39,7 +39,7 @@ const command: Command = {
       return;
     }
 
-    const newTotal = await addXp(user.id, amount, 'admin_adjustment', undefined, reason);
+    const newTotal = await addXp(user.id, amount, 'admin_adjustment', undefined, reason, true);
 
     const embed = createXpRewardEmbed(
       interaction.user,

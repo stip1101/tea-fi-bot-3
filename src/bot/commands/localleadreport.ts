@@ -9,7 +9,7 @@ import {
 } from 'discord.js';
 import type { Command } from '../client';
 import { getLocalLeadRoleId } from '../../config/roles';
-import { EMOJIS, getChannelIds } from '../../config';
+import { EMOJIS } from '../../config';
 
 const command: Command = {
   data: new SlashCommandBuilder()
@@ -22,16 +22,7 @@ const command: Command = {
 
     if (!localLeadRoleId || !(member?.roles?.cache?.has(localLeadRoleId) ?? false)) {
       await interaction.reply({
-        content: `${EMOJIS.CROSS} This command is only available for Local Leaders.`,
-        ephemeral: true,
-      });
-      return;
-    }
-
-    const { LOCAL_LEAD_CHANNEL_ID } = getChannelIds();
-    if (LOCAL_LEAD_CHANNEL_ID && interaction.channelId !== LOCAL_LEAD_CHANNEL_ID) {
-      await interaction.reply({
-        content: `${EMOJIS.CROSS} This command can only be used in the Local Lead channel.`,
+        content: `${EMOJIS.CROSS} This command is only available for Local Leaders.\nIf you'd like to become one, please fill out the application form: https://docs.google.com/forms/d/e/1FAIpQLSe9kFfvRomA5ynJznvJWxEoOPMLjwNww1T5qdkl6YM49VNDWw/viewform?usp=header`,
         ephemeral: true,
       });
       return;

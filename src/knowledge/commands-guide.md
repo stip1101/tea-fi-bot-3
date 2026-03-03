@@ -3,7 +3,7 @@
 ## User Commands
 
 ### /profile
-View your Tea Card — personal profile with stats, XP, role, and action buttons. Creates your account if you're new.
+View your Tea Card — personal profile with your role, Base XP, Bonus XP, Total XP, quality score, submission stats, and action buttons. Creates your account if you're new.
 
 ### /leaderboard
 View the XP leaderboard to see top contributors.
@@ -12,10 +12,10 @@ View the XP leaderboard to see top contributors.
 Submit work for a task. Select a task from the dropdown, fill in URL and optional description.
 
 ### /rewards
-View your monthly reward estimate based on current monthly XP and role multiplier.
+View your monthly reward estimate based on your current monthly XP and role multiplier.
 
 ### /localleadreport
-Submit a Local Lead monthly report (requires Local Lead Discord role). Includes Google Doc link and optional comment. One report per user per month.
+Submit a Local Lead monthly report (requires Local Lead Discord role). Includes report document link and optional comment. One report per user per month.
 
 ## Admin Commands
 
@@ -29,7 +29,7 @@ View detailed information about a specific user.
 View all pending works awaiting review.
 
 ### /adminset-xp @user <amount>
-Award XP to a user.
+Award bonus XP to a user.
 
 ### /adminset-role @user <role>
 Set a user's role (Sprout Leaf, Green Leaf, Golden Leaf).
@@ -51,5 +51,5 @@ Export CSV reports with program data.
 
 ## Getting Help
 
-- Ask TeaFi Bot questions in the designated chat channel
+- Ask TeaFi Bot questions in the community chat channel
 - Contact admins for issues the bot cannot resolve

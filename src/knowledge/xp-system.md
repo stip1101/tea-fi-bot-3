@@ -2,38 +2,48 @@
 
 ## What is XP?
 
-XP (Experience Points) measures your contribution to the TeaFi Program. XP determines your role and affects your share of the monthly reward pool.
+XP (Experience Points) measures your contribution to the Tea-Fi Program. Every verified activity generates XP. XP determines your role and affects your share of the monthly reward pool.
+
+## What XP Reflects
+
+- Content output
+- Ecosystem alignment
+- Community impact
+
+## Task Types and XP
+
+| Type | Description | XP |
+|------|-------------|-----|
+| Creative Content | Short-form creative pieces that highlight the product, ecosystem, or core ideas in a clear and engaging way | up to 15 XP |
+| UGC | User-generated content about Tea-Fi, reflects authentic interaction with the product | up to 15 XP |
+| Narrative Support | Contextual content that reinforces key narratives, explains positioning, and supports ongoing campaigns | up to 25 XP |
+| Article | In-depth written content that provides structured analysis, education, or long-form explanations | up to 30 XP |
 
 ## XP Sources
 
 | Source | Description |
 |--------|-------------|
 | work_approved | Base XP from the task, awarded on approval |
-| bonus | Optional bonus XP awarded by admin during approval |
+| bonus | Optional bonus XP awarded by reviewer during approval |
 | admin_adjustment | Manual XP adjustment by admin |
 
-## Base XP
+## Base XP vs Bonus XP
 
-Each task has a fixed XP reward defined by admins. When your work is approved, you automatically receive the task's base XP.
-
-## Bonus XP
-
-Admins can award optional bonus XP during work approval. This is extra XP on top of the base task reward for exceptional work.
+- **Base XP** — Fixed reward defined for each task. Cannot exceed the task's XP limit.
+- **Bonus XP** — Extra XP optionally awarded by the reviewer during approval for exceptional work. Displayed separately.
+- **Total XP** — Base XP + Bonus XP combined.
 
 ## Monthly XP
 
-Only XP earned in the current month counts for reward pool distribution. Monthly XP comes from:
-- Work approvals (base XP from tasks)
-- Bonus XP awarded during approvals
-- Admin adjustments
+Only XP earned in the current month counts for reward pool distribution. Each performance cycle runs for one month.
 
 ## XP History
 
-All XP changes are tracked in the xp_history table with source, amount, and timestamp.
+All XP changes are tracked with source, amount, and timestamp.
 
-## Where to Check XP?
+## Where to Check XP
 
-- `/profile` — your Tea Card with current XP
+- `/profile` — your Tea Card with Base XP, Bonus XP, and Total XP
 - `/leaderboard` — XP leaderboard
 
 ## FAQ
@@ -42,10 +52,10 @@ All XP changes are tracked in the xp_history table with source, amount, and time
 A: XP only changes through admin adjustments. Normal XP from work approvals is permanent.
 
 **Q: How to earn more XP?**
-A: Submit work for tasks and get approved. Higher-value tasks award more base XP.
+A: Submit work for tasks and get approved. Higher-value tasks (like Articles) award more base XP.
 
 **Q: When is XP credited?**
-A: Immediately after work is approved by an admin.
+A: Immediately after work is approved by a reviewer.
 
-**Q: What is the difference between base XP and bonus XP?**
-A: Base XP is the fixed reward defined for each task. Bonus XP is extra XP optionally awarded by the admin during approval.
+**Q: What is the difference between Base XP and Bonus XP?**
+A: Base XP is the fixed reward defined for each task. Bonus XP is extra XP optionally awarded by the reviewer during approval for exceptional work.

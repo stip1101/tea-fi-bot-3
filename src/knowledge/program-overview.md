@@ -1,40 +1,43 @@
-# TeaFi Program Overview
+# Tea-Fi Ambassador Program — Phase 3
 
-## What is the TeaFi Program?
+## What is the Tea-Fi Program?
 
-The TeaFi Program is a community program for TeaFi contributors. Participants submit work for admin-defined tasks, earn XP, and receive rewards from the monthly reward pool.
+The Tea-Fi Ambassador Program is a performance-based community program where participants contribute content, spread narratives, and develop community — earning XP and monthly rewards.
+
+## Two Tracks
+
+### Leaf Way
+Create content, spread narratives, develop community. Contributors grow through measurable performance and structured progression.
+- **Monthly reward pool:** $2,500 in $TEA
+- Progression through roles: Seed → Sprout Leaf → Green Leaf → Golden Leaf
+
+### Local Leaders
+Build community in your region. Local Leaders expand Tea-Fi regionally and build strong community hubs.
+- **Monthly reward pool:** $1,000 in $TEA
+- Apply here: https://docs.google.com/forms/d/e/1FAIpQLSe9kFfvRomA5ynJznvJWxEoOPMLjwNww1T5qdkl6YM49VNDWw/viewform?usp=header
 
 ## How It Works
 
 1. **Register** — Use `/profile` to create your Tea Card and join the program
-2. **Submit work** — Use `/sendwork` or the "Submit Work" button to complete tasks
+2. **Submit work** — Use `/sendwork` or the "Submit Work" button on your profile to complete tasks
 3. **Get reviewed** — Admins review your work and approve or reject it
 4. **Earn XP** — Approved work earns you base XP from the task + optional bonus XP
-5. **Gain roles** — Reach XP thresholds to unlock roles (Sprout Leaf, Green Leaf, Golden Leaf)
-6. **Earn rewards** — Monthly reward pool ($2500 default) distributed based on monthly XP and role multiplier
+5. **Gain roles** — Reach XP thresholds to unlock roles with better reward multipliers
+6. **Earn rewards** — Monthly reward pool distributed based on your XP and role multiplier
 
-## Roles
+## Roles (Leaf Way)
 
-Three roles based on total XP:
-
-| Role | XP Threshold | Multiplier |
-|------|-------------|------------|
-| Sprout Leaf 🍃 | 200 XP | 0.75x |
-| Green Leaf 🌿 | 650 XP | 1.3x |
-| Golden Leaf 🍂 | Manual promotion | 2.5x |
-
-Users without a role (< 200 XP) are excluded from the monthly reward pool.
-
-## Monthly Reward Pool
-
-- Default pool: $2500 per month (configurable)
-- Distributed based on monthly XP multiplied by role multiplier
-- Only users with a role (200+ XP) participate
-
-## Local Leaders
-
-Local Leaders are community managers who can submit monthly reports via `/localleadreport`.
+| Role | XP Threshold | Multiplier | How to Get |
+|------|-------------|------------|------------|
+| Seed | — | None (excluded from pool) | Starting point for all participants |
+| Sprout Leaf 🍃 | 200 XP | 0.75x | Auto-assigned at 200 XP |
+| Green Leaf 🌿 | 650 XP | 1.3x | Auto-assigned at 650 XP |
+| Golden Leaf 🍂 | 1,500 XP + approval | 2.5x | Top-tier, personally selected |
 
 ## Getting Started
 
-Use `/profile` to register and get your Tea Card, then `/sendwork` to submit your first work. Check `/leaderboard` to see top contributors.
+1. Join the Tea-Fi Discord: https://discord.gg/9Q5sUSjxGr
+2. Use `/profile` to register and get your Tea Card
+3. Use `/sendwork` to submit your first work
+4. Check `/leaderboard` to see top contributors
+5. Use `/rewards` to view your monthly reward estimate

@@ -52,7 +52,6 @@ export function getChannelIds() {
     REVIEW_CHANNEL_ID: process.env.REVIEW_CHANNEL_ID || '',
     TASK_LOG_CHANNEL_ID: process.env.TASK_LOG_CHANNEL_ID || '',
     WORK_CHANNEL_ID: process.env.WORK_CHANNEL_ID || '',
-    LOCAL_LEAD_CHANNEL_ID: process.env.LOCAL_LEAD_CHANNEL_ID || '',
     LOCAL_LEAD_REVIEW_CHANNEL_ID: process.env.LOCAL_LEAD_REVIEW_CHANNEL_ID || '',
   };
 }

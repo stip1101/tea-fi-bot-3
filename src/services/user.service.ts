@@ -115,7 +115,8 @@ export async function addXp(
   amount: number,
   source: string,
   workId?: string,
-  notes?: string
+  notes?: string,
+  isBonus?: boolean
 ): Promise<number> {
   if (amount < 0) {
     const user = await getUserById(userId);
@@ -129,12 +130,17 @@ export async function addXp(
   const { xpHistory } = await import('../db/schema');
 
   return await db.transaction(async (tx) => {
+    const setClause: Record<string, unknown> = {
+      totalXp: sql`GREATEST(0, ${users.totalXp} + ${amount})`,
+      updatedAt: new Date(),
+    };
+    if (isBonus) {
+      setClause.bonusXp = sql`GREATEST(0, ${users.bonusXp} + ${amount})`;
+    }
+
     const result = await tx
       .update(users)
-      .set({
-        totalXp: sql`GREATEST(0, ${users.totalXp} + ${amount})`,
-        updatedAt: new Date(),
-      })
+      .set(setClause)
       .where(eq(users.id, userId))
       .returning({ previousValue: sql<number>`${users.totalXp} - ${amount}`, newValue: users.totalXp });
 
