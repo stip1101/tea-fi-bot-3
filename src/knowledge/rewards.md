@@ -5,12 +5,12 @@
 The Tea-Fi Program has two separate monthly reward pools:
 
 ### Leaf Way Pool
-- **Amount:** $2,500 in $TEA per month
+- **Amount:** 600,000 $TEA per month
 - **For:** Content creators (Sprout Leaf, Green Leaf, Golden Leaf)
 - **Based on:** XP earned that month × role multiplier
 
 ### Local Leaders Pool
-- **Amount:** $1,000 in $TEA per month
+- **Amount:** 250,000 $TEA per month
 - **For:** Local Leaders
 - **Based on:** Monthly report review, distributed manually
 
@@ -38,16 +38,16 @@ Only users with a role participate in the Leaf Way reward pool:
 
 ### Example
 
-Pool: $2,500. Three eligible users this month:
+Pool: 600,000 $TEA. Three eligible users this month:
 - User A: 100 monthly XP, Green Leaf (1.3x) → 130 weighted XP
 - User B: 80 monthly XP, Sprout Leaf (0.75x) → 60 weighted XP
 - User C: 50 monthly XP, Golden Leaf (2.5x) → 125 weighted XP
 
-Total weighted XP: 315. Point price: $2,500 / 315 = $7.94
+Total weighted XP: 315. Point price: 600,000 / 315 = 1,904.76 $TEA
 
-- User A reward: 130 × $7.94 = $1,032
-- User B reward: 60 × $7.94 = $476
-- User C reward: 125 × $7.94 = $992
+- User A reward: 130 × 1,904.76 = 247,619 $TEA
+- User B reward: 60 × 1,904.76 = 114,286 $TEA
+- User C reward: 125 × 1,904.76 = 238,095 $TEA
 
 ## Monthly XP
 

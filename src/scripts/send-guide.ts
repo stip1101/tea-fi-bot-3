@@ -65,7 +65,7 @@ async function main() {
           name: '\n💰  REWARDS',
           value:
             'Use `/rewards` to see your estimated monthly reward.\n' +
-            'Pool: **$2,500/month** in $TEA, distributed by XP and role multiplier.',
+            '**Leaf Way:** 600,000 $TEA/month • **Local Leaders:** 250,000 $TEA/month',
           inline: false,
         },
         {

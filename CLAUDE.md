@@ -132,7 +132,8 @@ Roles never auto-demote. Golden Leaf is admin-assigned only.
 
 ## Monthly Reward Pool
 
-- Default: $2500 (configurable via `MONTHLY_POOL` env)
+- Leaf Way: 600,000 $TEA/month (configurable via `MONTHLY_POOL` env)
+- Local Leaders: 250,000 $TEA/month
 - Only users with a role (≥200 XP) participate
 - Formula: `reward = (monthlyXp × multiplier) / totalWeightedXp × pool`
 - Monthly XP = XP earned in current month only
@@ -261,7 +262,7 @@ GREEN_LEAF_ROLE_ID=
 GOLDEN_LEAF_ROLE_ID=
 
 # Monthly Reward Pool
-MONTHLY_POOL=2500
+MONTHLY_POOL=600000
 
 # AI Helper
 AMB_CHAT_CHANNEL_ID=

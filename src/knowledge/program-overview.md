@@ -8,12 +8,12 @@ The Tea-Fi Ambassador Program is a performance-based community program where par
 
 ### Leaf Way
 Create content, spread narratives, develop community. Contributors grow through measurable performance and structured progression.
-- **Monthly reward pool:** $2,500 in $TEA
+- **Monthly reward pool:** 600,000 $TEA
 - Progression through roles: Seed → Sprout Leaf → Green Leaf → Golden Leaf
 
 ### Local Leaders
 Build community in your region. Local Leaders expand Tea-Fi regionally and build strong community hubs.
-- **Monthly reward pool:** $1,000 in $TEA
+- **Monthly reward pool:** 250,000 $TEA
 - Apply here: https://docs.google.com/forms/d/e/1FAIpQLSe9kFfvRomA5ynJznvJWxEoOPMLjwNww1T5qdkl6YM49VNDWw/viewform?usp=header
 
 ## How It Works

@@ -37,7 +37,7 @@ A: Selection is based on consistency, ecosystem alignment, quality of output, an
 ## Rewards
 
 ### Q: How does the reward pool work?
-A: The Leaf Way pool is $2,500/month in $TEA. Your share is calculated as: monthly XP × role multiplier, divided by the total weighted XP of all eligible users.
+A: The Leaf Way pool is 600,000 $TEA/month. Your share is calculated as: monthly XP × role multiplier, divided by the total weighted XP of all eligible users.
 
 ### Q: Am I eligible for rewards?
 A: Only if you have a role (200+ total XP). Seed users are excluded from the monthly reward pool.
@@ -62,7 +62,7 @@ A: Ecosystem alignment may include product usage, governance participation, on-c
 ## Local Leaders
 
 ### Q: What is a Local Lead?
-A: Local Leaders are community managers who build Tea-Fi community in their region. They have a separate reward pool of $1,000/month.
+A: Local Leaders are community managers who build Tea-Fi community in their region. They have a separate reward pool of 250,000 $TEA/month.
 
 ### Q: How do I become a Local Lead?
 A: Apply here: https://docs.google.com/forms/d/e/1FAIpQLSe9kFfvRomA5ynJznvJWxEoOPMLjwNww1T5qdkl6YM49VNDWw/viewform?usp=header

@@ -57,5 +57,5 @@ export function getChannelIds() {
 }
 
 export function getMonthlyPool(): number {
-  return parseInt(process.env.MONTHLY_POOL || '2500', 10);
+  return parseInt(process.env.MONTHLY_POOL || '600000', 10);
 }

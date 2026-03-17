@@ -6,7 +6,7 @@ Local Leaders expand Tea-Fi regionally and build strong community hubs. They hav
 
 ## Reward Pool
 
-- **Monthly pool:** $1,000 in $TEA
+- **Monthly pool:** 250,000 $TEA
 - Distributed manually at the end of each month based on report review
 
 ## How to Become a Local Leader
