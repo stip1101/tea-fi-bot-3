@@ -1,6 +1,7 @@
 import { type ButtonInteraction } from 'discord.js';
 import { validateWorkReview } from '../shared/permissions';
 import { createReviewModal } from '../shared/modals';
+import { getTaskById } from '../../services/task.service';
 
 export default async function handleApprove(
   interaction: ButtonInteraction,
@@ -14,6 +15,9 @@ export default async function handleApprove(
     return;
   }
 
-  const modal = createReviewModal(workId!, 'approval');
+  const task = await getTaskById(validation.work.taskId);
+  const modal = createReviewModal(workId!, 'approval', {
+    maxBaseXp: task?.xpReward ?? 0,
+  });
   await interaction.showModal(modal);
 }

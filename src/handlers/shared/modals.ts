@@ -4,6 +4,7 @@ export type ReviewAction = 'approval' | 'rejection';
 
 export interface ReviewModalOptions {
   suggestedQuality?: number;
+  maxBaseXp?: number;
 }
 
 export function createReviewModal(
@@ -12,7 +13,7 @@ export function createReviewModal(
   options?: ReviewModalOptions
 ): ModalBuilder {
   const isApproval = action === 'approval';
-  const { suggestedQuality } = options ?? {};
+  const { suggestedQuality, maxBaseXp } = options ?? {};
 
   const modal = new ModalBuilder()
     .setCustomId(`${action}:${workId}`)
@@ -33,8 +34,20 @@ export function createReviewModal(
 
   modal.addComponents(new ActionRowBuilder<TextInputBuilder>().addComponents(qualityInput));
 
-  // Add Bonus XP field only for approval
+  // Add Base XP and Bonus XP fields only for approval
   if (isApproval) {
+    const baseXpInput = new TextInputBuilder()
+      .setCustomId('base-xp')
+      .setLabel(`Base XP (0-${maxBaseXp ?? 0})`)
+      .setPlaceholder(`Max: ${maxBaseXp ?? 0}`)
+      .setStyle(TextInputStyle.Short)
+      .setRequired(true)
+      .setMaxLength(4);
+
+    baseXpInput.setValue(String(maxBaseXp ?? 0));
+
+    modal.addComponents(new ActionRowBuilder<TextInputBuilder>().addComponents(baseXpInput));
+
     const bonusXpInput = new TextInputBuilder()
       .setCustomId('bonus-xp')
       .setLabel('Bonus XP (optional, 0-500)')

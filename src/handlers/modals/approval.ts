@@ -42,12 +42,19 @@ export default async function handleApproval(
   }
 
   const qualityScoreStr = interaction.fields.getTextInputValue('quality-score').trim();
+  const baseXpStr = interaction.fields.getTextInputValue('base-xp').trim();
   const bonusXpStr = interaction.fields.getTextInputValue('bonus-xp').trim();
   const reviewNotes = interaction.fields.getTextInputValue('review-notes').trim() || undefined;
 
   const qualityScore = Number(qualityScoreStr);
   if (!Number.isInteger(qualityScore) || qualityScore < 0 || qualityScore > 100) {
     await interaction.editReply({ content: `${EMOJIS.CROSS} Quality score must be a number between 0 and 100.` });
+    return;
+  }
+
+  const enteredBaseXp = Number(baseXpStr);
+  if (!Number.isInteger(enteredBaseXp) || enteredBaseXp < 0) {
+    await interaction.editReply({ content: `${EMOJIS.CROSS} Base XP must be a non-negative integer.` });
     return;
   }
 
@@ -78,8 +85,12 @@ export default async function handleApproval(
       workUserId = lockedWork.userId;
 
       const task = await getTaskForWork(tx, lockedWork.taskId);
-      baseXp = task.xpReward;
       taskName = task.name;
+
+      if (enteredBaseXp > task.xpReward) {
+        throw new Error(`Base XP cannot exceed task maximum (${task.xpReward}).`);
+      }
+      baseXp = enteredBaseXp;
 
       const user = await lockAndValidateUser(tx, lockedWork.userId);
       if (user.isBanned) throw new UserBannedError(user.discordId);
@@ -163,6 +174,10 @@ export default async function handleApproval(
     }
     if (error instanceof UserBannedError) {
       await interaction.editReply({ content: `${EMOJIS.BANNED} Cannot approve: user has been banned.` });
+      return;
+    }
+    if (error instanceof Error && error.message.startsWith('Base XP cannot exceed')) {
+      await interaction.editReply({ content: `${EMOJIS.CROSS} ${error.message}` });
       return;
     }
     handlerLogger.error({ err: error, workId }, 'Transaction failed during approval');
