@@ -24,6 +24,7 @@ export const users = pgTable(
   {
     id: text('id').primaryKey(),
     discordId: text('discord_id').notNull().unique(),
+    discordUsername: text('discord_username'),
 
     // Role
     role: teafiRoleEnum('role').notNull().default('none'),
@@ -45,6 +46,7 @@ export const users = pgTable(
   },
   (table) => [
     uniqueIndex('users_discord_id_idx').on(table.discordId),
+    index('users_discord_username_idx').on(table.discordUsername),
     index('users_total_xp_idx').on(table.totalXp),
     index('users_is_banned_idx').on(table.isBanned),
     index('users_last_activity_idx').on(table.lastActivityAt),

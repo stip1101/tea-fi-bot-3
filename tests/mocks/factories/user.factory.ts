@@ -13,6 +13,7 @@ export function createMockUser(overrides?: Partial<User>): User {
   const defaultUser: User = {
     id: `user-${userCounter}`,
     discordId: `discord-${userCounter}`,
+    discordUsername: null,
 
     // Role
     role: 'none' as TeafiRole,

@@ -20,7 +20,7 @@ const command: Command = {
     let user = await getUserByDiscordId(discordUser.id);
 
     if (!user) {
-      user = await createUser(discordUser.id);
+      user = await createUser(discordUser.id, discordUser.username);
 
       const welcomeEmbed = createWelcomeEmbed(discordUser);
       const buttons = createProfileButtons();
@@ -41,7 +41,7 @@ const command: Command = {
       return;
     }
 
-    await updateUserActivity(user.id);
+    await updateUserActivity(user.id, discordUser.username);
 
     const stats = await getUserStats(user.id);
 

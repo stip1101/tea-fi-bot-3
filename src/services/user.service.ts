@@ -7,6 +7,7 @@ function mapUserRow(row: Record<string, unknown>): User {
   return {
     id: row.id as string,
     discordId: row.discord_id as string,
+    discordUsername: (row.discord_username as string | null) ?? null,
     role: row.role as User['role'],
     totalXp: row.total_xp as number,
     bonusXp: row.bonus_xp as number,
@@ -44,12 +45,12 @@ export async function getUserById(id: string): Promise<User | null> {
   return result[0] ?? null;
 }
 
-export async function createUser(discordId: string): Promise<User> {
+export async function createUser(discordId: string, discordUsername?: string): Promise<User> {
   const id = generateId();
 
   const result = await db
     .insert(users)
-    .values({ id, discordId })
+    .values({ id, discordId, discordUsername: discordUsername ?? null })
     .returning();
 
   if (!result[0]) throw new Error('Failed to create user');
@@ -69,11 +70,15 @@ export async function updateUser(
   return result[0] ?? null;
 }
 
-export async function updateUserActivity(id: string): Promise<void> {
-  await db
-    .update(users)
-    .set({ lastActivityAt: new Date(), updatedAt: new Date() })
-    .where(eq(users.id, id));
+export async function updateUserActivity(id: string, discordUsername?: string): Promise<void> {
+  const data: Record<string, unknown> = {
+    lastActivityAt: new Date(),
+    updatedAt: new Date(),
+  };
+  if (discordUsername) {
+    data.discordUsername = discordUsername;
+  }
+  await db.update(users).set(data).where(eq(users.id, id));
 }
 
 export async function getUserStats(userId: string): Promise<UserStats> {
@@ -212,7 +217,7 @@ export async function getTopPerformers(
 ): Promise<{ users: TopPerformerData[]; total: number }> {
   const [performersResult, countResult] = await Promise.all([
     db.execute<{
-      id: string; discord_id: string; role: string; total_xp: number; bonus_xp: number;
+      id: string; discord_id: string; discord_username: string | null; role: string; total_xp: number; bonus_xp: number;
       works_count: number; is_banned: boolean; ban_reason: string | null;
       last_activity_at: Date | null; registered_at: Date; created_at: Date; updated_at: Date;
       total_works: number; approved_works: number; rejected_works: number;
@@ -261,7 +266,7 @@ export async function getProblemUsers(): Promise<ProblemUsersData> {
 
   const [usersWithStats, bannedUsers] = await Promise.all([
     db.execute<{
-      id: string; discord_id: string; role: string; total_xp: number; bonus_xp: number;
+      id: string; discord_id: string; discord_username: string | null; role: string; total_xp: number; bonus_xp: number;
       works_count: number; is_banned: boolean; ban_reason: string | null;
       last_activity_at: Date | null; registered_at: Date; created_at: Date; updated_at: Date;
       total_works: number; approved_works: number; rejected_works: number;
