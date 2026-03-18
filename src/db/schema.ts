@@ -136,7 +136,13 @@ export const twitterMetrics = pgTable(
     retweets: integer('retweets').notNull().default(0),
     replies: integer('replies').notNull().default(0),
     views: integer('views').notNull().default(0),
+    bookmarks: integer('bookmarks').notNull().default(0),
     engagementRate: decimal('engagement_rate', { precision: 5, scale: 2 }).notNull().default('0'),
+
+    isReply: boolean('is_reply').notNull().default(false),
+    inReplyToId: text('in_reply_to_id'),
+    tweetText: text('tweet_text'),
+    authorUsername: text('author_username'),
 
     tweetCreatedAt: timestamp('tweet_created_at'),
     scrapedAt: timestamp('scraped_at').notNull().defaultNow(),

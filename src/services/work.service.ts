@@ -162,8 +162,13 @@ export async function saveTwitterMetrics(
     retweets: number;
     replies: number;
     views: number;
+    bookmarks: number;
     engagementRate: string;
     tweetCreatedAt?: Date;
+    isReply: boolean;
+    inReplyToId: string | null;
+    tweetText: string | null;
+    authorUsername: string | null;
   }
 ): Promise<void> {
   await db.insert(twitterMetrics).values({
@@ -173,8 +178,13 @@ export async function saveTwitterMetrics(
     retweets: metrics.retweets,
     replies: metrics.replies,
     views: metrics.views,
+    bookmarks: metrics.bookmarks,
     engagementRate: metrics.engagementRate,
     tweetCreatedAt: metrics.tweetCreatedAt,
+    isReply: metrics.isReply,
+    inReplyToId: metrics.inReplyToId,
+    tweetText: metrics.tweetText,
+    authorUsername: metrics.authorUsername,
   });
 }
 

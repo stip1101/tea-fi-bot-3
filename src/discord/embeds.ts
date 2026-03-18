@@ -158,6 +158,7 @@ export function createReviewEmbed(
     retweets: number;
     replies: number;
     views: number;
+    bookmarks: number;
     engagementRate: string;
   },
   userStats?: UserStats
@@ -224,7 +225,8 @@ export function createReviewEmbed(
         `│  ${EMOJIS.HEART} **${formatNumber(twitterMetrics.likes)}**  •  ` +
         `${EMOJIS.RETWEET} **${formatNumber(twitterMetrics.retweets)}**  •  ` +
         `${EMOJIS.COMMENT} **${formatNumber(twitterMetrics.replies)}**  •  ` +
-        `${EMOJIS.EYE} **${formatNumber(twitterMetrics.views)}**\n` +
+        `${EMOJIS.EYE} **${formatNumber(twitterMetrics.views)}**  •  ` +
+        `🔖 **${formatNumber(twitterMetrics.bookmarks)}**\n` +
         `│  ${EMOJIS.CHART} Engagement Rate: **${twitterMetrics.engagementRate}%**\n` +
         `└─────────────────────────────────────────┘`,
       inline: false,

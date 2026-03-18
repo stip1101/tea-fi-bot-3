@@ -269,8 +269,8 @@ AMB_CHAT_CHANNEL_ID=
 OPENAI_API_KEY=
 OPENAI_VECTOR_STORE_ID=
 
-# Twitter
-TWITTER_COOKIES=
+# Twitter API (twitterapi.io)
+TWITTER_API_KEY=
 ```
 
 ---

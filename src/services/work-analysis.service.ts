@@ -99,6 +99,7 @@ async function updateReviewMessage(
           retweets: metrics.retweets,
           replies: metrics.replies,
           views: metrics.views,
+          bookmarks: metrics.bookmarks,
           engagementRate: String(metrics.engagementRate),
         }
       : undefined;

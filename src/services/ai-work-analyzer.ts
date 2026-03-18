@@ -62,7 +62,15 @@ export async function analyzeWorkWithAI(input: WorkAnalysisInput): Promise<WorkA
     userPrompt += `- Retweets: ${twitterMetrics.retweets.toLocaleString()}\n`;
     userPrompt += `- Replies: ${twitterMetrics.replies.toLocaleString()}\n`;
     userPrompt += `- Views: ${twitterMetrics.views.toLocaleString()}\n`;
+    userPrompt += `- Bookmarks: ${twitterMetrics.bookmarks.toLocaleString()}\n`;
     userPrompt += `- Engagement Rate: ${twitterMetrics.engagementRate}%\n`;
+    userPrompt += `- Is Reply: ${twitterMetrics.isReply}\n`;
+    if (twitterMetrics.authorUsername) {
+      userPrompt += `- Author: @${twitterMetrics.authorUsername}\n`;
+    }
+    if (twitterMetrics.tweetText) {
+      userPrompt += `- Tweet Text: "${twitterMetrics.tweetText.slice(0, 500)}"\n`;
+    }
   } else {
     userPrompt += `\n**Note:** No Twitter metrics available.\n`;
   }
