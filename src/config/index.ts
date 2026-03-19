@@ -53,6 +53,7 @@ export function getChannelIds() {
     TASK_LOG_CHANNEL_ID: process.env.TASK_LOG_CHANNEL_ID || '',
     WORK_CHANNEL_ID: process.env.WORK_CHANNEL_ID || '',
     LOCAL_LEAD_REVIEW_CHANNEL_ID: process.env.LOCAL_LEAD_REVIEW_CHANNEL_ID || '',
+    AMB_CHAT_CHANNEL_ID: process.env.AMB_CHAT_CHANNEL_ID || '',
   };
 }
 

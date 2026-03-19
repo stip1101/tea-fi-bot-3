@@ -3,9 +3,29 @@ import type { ExtendedClient } from '../client';
 import { AI_HELPER_CONFIG, shouldRespond, processMessage, formatResponse, aiLogger } from '../../ai';
 import { getChannelIds } from '../../config';
 import { redis } from '../../state';
+import { db, chatMessages } from '../../db';
+import { generateId } from '../../utils/id';
 
 export function setupMessageCreateEvent(client: ExtendedClient): void {
   client.on(Events.MessageCreate, async (message: Message) => {
+    // --- Log ambassador chat messages ---
+    const ambChatId = getChannelIds().AMB_CHAT_CHANNEL_ID;
+    if (ambChatId && message.channel.id === ambChatId && !message.author.bot) {
+      db.insert(chatMessages).values({
+        id: generateId(),
+        discordMessageId: message.id,
+        authorId: message.author.id,
+        authorUsername: message.author.username,
+        channelId: message.channel.id,
+        content: message.content.slice(0, 4000),
+        contentLength: message.content.length,
+        isReply: !!message.reference,
+        replyToMessageId: message.reference?.messageId ?? null,
+      }).onConflictDoNothing().catch((err) => {
+        aiLogger.error({ err, messageId: message.id }, 'Failed to log chat message');
+      });
+    }
+
     // --- Work channel: auto-delete all visible messages except our own bot's ---
     const workChannelId = getChannelIds().WORK_CHANNEL_ID;
     if (workChannelId && message.channel.id === workChannelId) {

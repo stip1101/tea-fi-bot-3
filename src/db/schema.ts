@@ -224,6 +224,26 @@ export const localLeadReports = pgTable(
   ]
 );
 
+export const chatMessages = pgTable(
+  'chat_messages',
+  {
+    id: text('id').primaryKey(),
+    discordMessageId: text('discord_message_id').notNull().unique(),
+    authorId: text('author_id').notNull(),
+    authorUsername: text('author_username').notNull(),
+    channelId: text('channel_id').notNull(),
+    content: text('content').notNull(),
+    contentLength: integer('content_length').notNull().default(0),
+    isReply: boolean('is_reply').notNull().default(false),
+    replyToMessageId: text('reply_to_message_id'),
+    createdAt: timestamp('created_at').notNull().defaultNow(),
+  },
+  (table) => [
+    index('chat_messages_created_at_idx').on(table.createdAt),
+    index('chat_messages_author_id_idx').on(table.authorId),
+  ]
+);
+
 // ==================== RELATIONS ====================
 
 export const usersRelations = relations(users, ({ many }) => ({
@@ -296,6 +316,7 @@ export type TwitterMetric = typeof twitterMetrics.$inferSelect;
 export type XpHistoryEntry = typeof xpHistory.$inferSelect;
 export type RoleHistoryEntry = typeof roleHistory.$inferSelect;
 export type LocalLeadReport = typeof localLeadReports.$inferSelect;
+export type ChatMessage = typeof chatMessages.$inferSelect;
 
 export type TeafiRole = 'none' | 'sprout_leaf' | 'green_leaf' | 'golden_leaf';
 export type WorkStatus = 'pending' | 'approved' | 'rejected';

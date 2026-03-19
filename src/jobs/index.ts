@@ -1,6 +1,6 @@
 import cron from 'node-cron';
 import type { Client } from 'discord.js';
-import { sql, eq, and } from 'drizzle-orm';
+import { sql, eq, and, lt } from 'drizzle-orm';
 import { jobLogger } from '../utils/logger';
 
 let discordClient: Client | null = null;
@@ -17,6 +17,19 @@ export function setupJobs(client?: Client): void {
       jobLogger.info('Role check completed');
     } catch (error) {
       jobLogger.error({ err: error }, 'Role check failed');
+    }
+  });
+
+  // Chat message cleanup - runs every 6 hours to delete messages older than 7 days
+  cron.schedule('0 */6 * * *', async () => {
+    try {
+      const { db, chatMessages } = await import('../db');
+      const result = await db.delete(chatMessages).where(
+        lt(chatMessages.createdAt, sql`now() - interval '7 days'`)
+      );
+      jobLogger.info('Chat message cleanup completed');
+    } catch (error) {
+      jobLogger.error({ err: error }, 'Chat message cleanup failed');
     }
   });
 
